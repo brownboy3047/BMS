@@ -17,14 +17,6 @@
       "sellingPrice": 6000
     },
     {
-      "id": 483,
-      "name": "spaghetti",
-      "category": "Food stuff",
-      "description": "cartoon of spag",
-      "status": "In Stock",
-      "sellingPrice": 8000
-    },
-    {
       "id": 550,
       "name": "cartoon of spaghetti",
       "category": "Food stuff",
@@ -55,6 +47,10 @@
     {
       "id": 5552,
       "name": "Fashion"
+    },
+    {
+      "id": 5727,
+      "name": "Electronics"
     }
   ],
   "tasks": [
