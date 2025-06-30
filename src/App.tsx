@@ -12,6 +12,10 @@ import Category from "./components/Category";
 import ProductForm from "./components/ProductForm";
 import ProductDetails from "./components/ProductDetails";
 import CreateCategory from "./components/CreateCategory";
+import Inventory from "./components/Inventory";
+import CreateInventory from "./components/CreateInventory";
+import InventoryDetails from "./components/InventoryDetails";
+import Sales from "./components/Sales";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +34,13 @@ function App() {
               path="category/createCategory"
               element={<CreateCategory />}
             />
+            <Route path="inventory" element={<Inventory />} />
+            <Route path="inventory/:id" element={<InventoryDetails />} />
+            <Route
+              path="inventory/createInventory"
+              element={<CreateInventory />}
+            />
+            <Route path="sales" element={<Sales />} />
             <Route path="tasks" element={<Tasks />} />
             <Route path="settings" element={<Settings />} />
           </Route>

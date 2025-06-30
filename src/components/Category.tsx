@@ -36,9 +36,8 @@ const Category: React.FC = () => {
   };
 
   const handleDelete = (id: number) => {
-    console.log(`Delete product with id: ${id}`);
+    // console.log(`Delete product with id: ${id}`);
     // Implement your delete logic here
-    // deleteProductFn(id);
     deleteCategoryFn(id);
   };
 

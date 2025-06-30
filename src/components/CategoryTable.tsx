@@ -62,7 +62,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   <button
                     // to={`${product.id}`}
                     onClick={() => handleEdit(category.id)}
-                    className="text-indigo-600 hover:text-indigo-900 mr-4"
+                    className="text-indigo-600 hover:text-indigo-900 mr-4 outline-none text-xs border p-1 rounded uppercase"
                   >
                     Edit
                   </button>
@@ -74,7 +74,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   </Link> */}
                   <button
                     onClick={() => handleDelete(category.id)}
-                    className="text-red-600 hover:text-red-900"
+                    className="text-red-600 hover:text-red-900 outline-none text-xs border p-1 rounded uppercase"
                   >
                     Delete
                   </button>

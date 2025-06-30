@@ -19,7 +19,7 @@ const TheTasksTable: React.FC<TaskTableProps> = ({ filteredTasks }) => {
   const location = useLocation();
 
   return (
-    <table className="w-full table-auto border-collapse border border-gray-300">
+    <table className="w-full table-auto border-collapse border border-gray-3">
       <thead className="bg-gray-100">
         <tr className="text-xs sm:text-base">
           <th className="px-4 py-2 border border-gray-300">ID</th>
@@ -29,7 +29,7 @@ const TheTasksTable: React.FC<TaskTableProps> = ({ filteredTasks }) => {
           <th className="px-4 py-2 border border-gray-300">Assigned To</th>
           <th className="px-4 py-2 border border-gray-300">Status</th>
           <th
-            className={`px-4 py-2 border border-gray-300 ${
+            className={`px-4 py-2 borde border-gray-3 ${
               location.pathname === "/" ? "hidden" : ""
             }`}
           >
@@ -39,19 +39,22 @@ const TheTasksTable: React.FC<TaskTableProps> = ({ filteredTasks }) => {
       </thead>
       <tbody>
         {filteredTasks.map((task) => (
-          <tr key={task.id} className="even:bg-gray-50 p-4 text-sm capitalize">
-            <td className="px-4 py-2 border border-gray-300">{task.id}</td>
-            <td className="px-4 py-2 border border-gray-300 font-semibold">
+          <tr
+            key={task.id}
+            className="even:bg-gray-50 p-4 text-sm capitalize text-center"
+          >
+            <td className="px-4 py-2 border-b border-gray-3">{task.id}</td>
+            <td className="px-4 py-2 border-b border-gray-3 font-semibold">
               {task.title}
             </td>
-            <td className="px-4 py-2 border border-gray-300">
+            <td className="px-4 py-2 border-b border-gray-3">
               {task.priority}
             </td>
-            <td className="px-4 py-2 border border-gray-300">
+            <td className="px-4 py-2 border-b border-gray-3">
               {task.dueDate ? (
                 task.dueDate
               ) : (
-                <p className="flex items-center gap-1">
+                <p className="flex items-center justify-center gap-1">
                   <AiOutlineQuestionCircle
                     size={18}
                     className="text-blue-500"
@@ -60,11 +63,11 @@ const TheTasksTable: React.FC<TaskTableProps> = ({ filteredTasks }) => {
                 </p>
               )}
             </td>
-            <td className="px-4 py-2 border border-gray-300">
+            <td className="px-4 py-2 border-b border-gray-3">
               {task.assignedTo ? (
                 task.assignedTo
               ) : (
-                <p className="flex items-center gap-1">
+                <p className="flex items-center justify-center gap-1">
                   <AiOutlineQuestionCircle
                     size={18}
                     className="text-blue-500"
@@ -73,7 +76,7 @@ const TheTasksTable: React.FC<TaskTableProps> = ({ filteredTasks }) => {
                 </p>
               )}
             </td>
-            <td className="px-4 py-2 border border-gray-300 text-center">
+            <td className="px-4 py-2 border-b border-gray-3 text-center">
               <span
                 className={`text-sm p-1 rounded-md font-semibold ${
                   task.status === "Done"

@@ -12,7 +12,9 @@ const ProductDetails: React.FC = () => {
   console.log(product);
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-2xl p-4 lg:p-8 mx-auto font-bold">Loading...</div>
+    );
   }
 
   return (
@@ -25,7 +27,7 @@ const ProductDetails: React.FC = () => {
           <img
             src={product?.image}
             alt="product image"
-            className="w-40 rounded"
+            className="w-full md:w-40 rounded"
           />
         </div>
 
@@ -44,14 +46,17 @@ const ProductDetails: React.FC = () => {
             <span className="font-semibold uppercase mr-2 text-sm">
               PRODUCT NAME:
             </span>{" "}
-            <span className="text-gray-700 font-bold"> {product?.name}</span>
+            <span className="text-gray-700 font-bold text-sm sm:text-base">
+              {" "}
+              {product?.name}
+            </span>
           </p>
 
           <p className="capitalize my-3">
             <span className="font-semibold uppercase mr-2 text-sm">
               SELLING PRICE:
             </span>{" "}
-            <span className="text-gray-700 font-bold">
+            <span className="text-gray-700 font-bold text-sm sm:text-base">
               {product?.sellingPrice.toLocaleString()}
             </span>
           </p>
@@ -60,7 +65,7 @@ const ProductDetails: React.FC = () => {
             <span className="font-semibold uppercase mr-2 text-sm">
               description:
             </span>{" "}
-            <span className="text-gray-700 font-bold">
+            <span className="text-gray-700 font-bold text-sm sm:text-base">
               {" "}
               {product?.description}
             </span>
@@ -70,14 +75,18 @@ const ProductDetails: React.FC = () => {
             <span className="font-semibold uppercase mr-2 text-sm">
               category:
             </span>{" "}
-            <span className="text-gray-700 font-bold">{product?.category}</span>
+            <span className="text-gray-700 font-bold text-sm sm:text-base">
+              {product?.category}
+            </span>
           </p>
 
           <p className="capitalize my-3">
             <span className="font-semibold uppercase mr-2 text-sm">
               status:
             </span>{" "}
-            <span className="text-gray-700 font-bold">{product?.status}</span>
+            <span className="text-gray-700 font-bold text-sm sm:text-base">
+              {product?.status}
+            </span>
           </p>
         </div>
       </div>

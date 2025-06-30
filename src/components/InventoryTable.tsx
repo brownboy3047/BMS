@@ -1,31 +1,34 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useProductContext } from "../hooks/useProductContext";
-import { useDeleteProduct } from "../hooks/useDeleteProduct";
+import { Link } from "react-router-dom";
+import { useDeleteInventory } from "../hooks/useDeleteInventory";
 
-interface Product {
+interface Inventory {
   id: number;
-  name: string;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+  description: string;
+  category: string;
   status: string;
-  sellingPrice: number;
+  supplier: string;
+  expirationDate: string;
+  location: string;
 }
 
-interface ProductTableProps {
-  products: Product[];
+interface InventoriesProp {
+  inventories: Inventory[];
   handleEdit: (id: number) => void;
   handleView: (id: number) => void;
-  // handleDelete: () => void;
 }
 
-const ProductTable: React.FC<ProductTableProps> = ({
-  products,
+const InventoryTable: React.FC<InventoriesProp> = ({
+  inventories,
   handleEdit,
-  //   handleView,
-  // handleDelete,
 }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const { theId, setTheId } = useProductContext();
-  const { deleteProductFn } = useDeleteProduct();
+  const { deleteInventoryFn } = useDeleteInventory();
 
   const handleDeleteModal = (id: number) => {
     setTheId(id);
@@ -35,14 +38,16 @@ const ProductTable: React.FC<ProductTableProps> = ({
   const handleDelete = () => {
     console.log(`Delete product with id: ${theId}`);
     // Implement your delete logic here
-    deleteProductFn(theId);
+    deleteInventoryFn(theId);
     setOpenDeleteModal(false);
   };
 
   return (
     <>
       <div className="overflow-x-auto p-4 bg-white shadow-md rounded">
-        <h2 className="mb-2 font-bold">Total Products: {products?.length}</h2>
+        <h2 className="mb-2 font-bold">
+          Total Inventories: {inventories?.length}
+        </h2>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr className="">
@@ -62,14 +67,33 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
               >
-                Status
+                Quantity
+              </th>
+
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+              >
+                Unit Price
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
               >
-                Selling Price
+                Total Value
               </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+              >
+                Status
+              </th>
+              {/* <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+              >
+                Supplier
+              </th> */}
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
@@ -79,21 +103,44 @@ const ProductTable: React.FC<ProductTableProps> = ({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {products?.length ? (
-              products?.map((product) => (
+            {inventories?.length ? (
+              inventories?.map((product) => (
                 <tr key={product.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {product.id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {product.name}
+                    {product.productName}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {product.status}
+                    {product.quantity.toLocaleString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {product.sellingPrice.toLocaleString()}
+                    {product.unitPrice.toLocaleString()}
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {(product.unitPrice * product.quantity).toLocaleString()}
+                  </td>
+                  <td
+                    className={`px-6 py-4 whitespace-nowrap text-sm text-white font-bold`}
+                  >
+                    <span
+                      className={`p-1 rounded ${
+                        product.status === "In stock"
+                          ? "bg-green-500"
+                          : product.status === "Low stock"
+                          ? "bg-yellow-500"
+                          : "bg-red-500"
+                      }`}
+                    >
+                      {" "}
+                      {product.status}
+                    </span>
+                  </td>
+                  {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {product.supplier}
+                  </td> */}
+
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
                       // to={`${product.id}`}
@@ -121,7 +168,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
             ) : (
               <tr>
                 <td colSpan={8} className="text-center text-2xl font-bold py-4">
-                  No Product Found
+                  No Product Inventory Found
                 </td>
               </tr>
             )}
@@ -162,4 +209,4 @@ const ProductTable: React.FC<ProductTableProps> = ({
   );
 };
 
-export default ProductTable;
+export default InventoryTable;

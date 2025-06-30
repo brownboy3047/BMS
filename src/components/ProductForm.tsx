@@ -77,7 +77,7 @@ const ProductForm: React.FC = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="max-w-full mx-aut p-4 md:p-4 m-4 bg-white rounded-md shadow-md"
     >
-      <h2 className="text-lg font-bold mb-4">Add Product</h2>
+      <h2 className="text-lg font-bold mb-4">Create Product</h2>
       <div className="mb-4">
         <label className="block text-sm font-medium mb-2">Name:</label>
         <input
@@ -109,11 +109,6 @@ const ProductForm: React.FC = () => {
           {...register("category", { required: "Category is required" })}
           className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {/* <option value="">Select a category</option>
-          <option value="Food stuff">Food stuff</option>
-          <option value="Frozen food">Frozen food</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Fashion">Fashion</option> */}
           <option value="">Select a category</option>
           {categories?.length ? (
             categories?.map((category: Category) => (

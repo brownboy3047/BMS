@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 // import { productData } from "../data/ProductData";
 import { useGetProducts } from "../hooks/useGetProducts";
-import { useDeleteProduct } from "../hooks/useDeleteProduct";
+// import { useDeleteProduct } from "../hooks/useDeleteProduct";
 import ProductTable from "./ProductTable";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
@@ -16,7 +16,8 @@ interface Product {
 const Product = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { products, isPending } = useGetProducts();
-  const { deleteProductFn } = useDeleteProduct();
+  // const { deleteProductFn } = useDeleteProduct();
+
   //   console.log(products?.products);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +26,7 @@ const Product = () => {
 
   //   * search product name  function
   const searchProducts: Product[] = products?.filter((product: Product) =>
-    product?.name.toLowerCase().includes(searchQuery.toLowerCase())
+    product?.name?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // *Edit function
@@ -39,15 +40,10 @@ const Product = () => {
     // Implement your view logic here
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Delete product with id: ${id}`);
-    // Implement your delete logic here
-    deleteProductFn(id);
-  };
-
-  //   if (isPending) {
-  //     return <div className="text-3xl font-bold">Loading...</div>;
-  //   }
+  // const handleDelete = () => {
+  //   console.log(`Delete product with id: ${theId}`);
+  //   deleteProductFn(theId);
+  // };
 
   return (
     <main className="flex-1 p-4 lg:p-8">
@@ -81,7 +77,7 @@ const Product = () => {
             products={searchProducts}
             handleEdit={handleEdit}
             handleView={handleView}
-            handleDelete={handleDelete}
+            // handleDelete={handleDelete}
           />
         </div>
       )}
