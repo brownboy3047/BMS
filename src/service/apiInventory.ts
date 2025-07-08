@@ -38,6 +38,23 @@ export const createInventory = async (newProduct: any) => {
   }
 };
 
+// * Edit Inventory
+
+export const editInventoryApi = async (newEditInventory: any, id: any) => {
+  //   const token = localStorage.getItem("token");
+
+  const { data } = await axios.patch(
+    `${baseUrl}/inventories/${id}`,
+    newEditInventory
+    // {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // }
+  );
+
+  return data;
+};
 // * Delete inventory
 export const deleteInventory = async (id: number) => {
   const response = await axios.delete(`${baseUrl}/inventories/${id}`);

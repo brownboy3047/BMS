@@ -1,7 +1,9 @@
+import React from "react";
+import GoBack from "./GoBack";
+import { useProductContext } from "../hooks/useProductContext";
 import { useForm } from "react-hook-form";
 import { useGetCategory } from "../hooks/useGetCategory";
-import { useCreateInventory } from "../hooks/useCreateInventory";
-import GoBack from "./GoBack";
+import { useEditInventory } from "../hooks/useEditInventory";
 
 interface InventoryFormData {
   id: number;
@@ -21,36 +23,28 @@ interface Category {
   name: string;
 }
 
-const CreateInventory = () => {
+const EditInventory: React.FC = () => {
   const {
     register,
     handleSubmit,
-    reset,
+    // reset,
     formState: { errors },
   } = useForm<InventoryFormData>();
 
-  const { addInventory, isCreating } = useCreateInventory();
+  const { selectedInventory } = useProductContext();
   const { categories } = useGetCategory();
+  const { editInventory, isEditing } = useEditInventory();
+
+  //   console.log(selectedInventory);
 
   const onSubmit = async (data: InventoryFormData) => {
-    const newInventory = {
-      id: Math.floor(Math.random() * 1000) + 1,
-      productName: data.productName,
-      quantity: data.quantity,
-      unitPrice: data.unitPrice,
-      category: data.category,
-      description: data.description,
-      status: data.status,
-      supplier: data.supplier,
-      location: data.location,
-      expirationDate: data.expirationDate,
-    };
+    console.log(data);
 
-    console.log(newInventory);
+    const id = selectedInventory?.id;
 
-    addInventory(newInventory);
-
-    reset();
+    if (selectedInventory) {
+      editInventory({ newEditInventory: data, id });
+    }
   };
 
   return (
@@ -61,13 +55,14 @@ const CreateInventory = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-full mx-auto p-4 md:p-4 m-4 bg-white rounded-md shadow-md"
       >
-        <h2 className="text-lg font-bold mb-4">Create Inventory</h2>
+        <h2 className="text-lg font-bold mb-4">Edit Inventory</h2>
         <div className="flex flex-wrap -mx-2 mb-4">
           <div className="w-full md:w-1/ px-2 mb-4 md:mb-0">
             <label className="block text-sm font-medium mb-2">
               Product Name:
             </label>
             <input
+              defaultValue={selectedInventory?.productName}
               type="text"
               {...register("productName", {
                 required: "Product name is required",
@@ -83,6 +78,7 @@ const CreateInventory = () => {
           <div className="w-full md:w-1/2 px-2 mt-4">
             <label className="block text-sm font-medium mb-2">Quantity:</label>
             <input
+              defaultValue={selectedInventory?.quantity}
               type="number"
               {...register("quantity", {
                 required: "Quantity is required",
@@ -99,6 +95,7 @@ const CreateInventory = () => {
               Unit Price:
             </label>
             <input
+              defaultValue={selectedInventory?.unitPrice}
               type="number"
               {...register("unitPrice", {
                 required: "Unit price is required",
@@ -115,6 +112,7 @@ const CreateInventory = () => {
           <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
             <label className="block text-sm font-medium mb-2">Category:</label>
             <select
+              defaultValue={selectedInventory?.category}
               {...register("category", { required: "Category is required" })}
               className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -138,6 +136,7 @@ const CreateInventory = () => {
           <div className="w-full md:w-1/2 px-2">
             <label className="block text-sm font-medium mb-2">Status:</label>
             <select
+              defaultValue={selectedInventory?.status}
               {...register("status", { required: "Status is required" })}
               className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -154,6 +153,7 @@ const CreateInventory = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Supplier:</label>
           <input
+            defaultValue={selectedInventory?.supplier}
             type="text"
             {...register("supplier", { required: "Supplier is required" })}
             className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -165,6 +165,7 @@ const CreateInventory = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Location:</label>
           <input
+            defaultValue={selectedInventory?.location}
             type="text"
             {...register("location", { required: "Location is required" })}
             className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -176,6 +177,7 @@ const CreateInventory = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Description:</label>
           <textarea
+            defaultValue={selectedInventory?.description}
             {...register("description", {
               required: "Description is required",
             })}
@@ -190,6 +192,7 @@ const CreateInventory = () => {
             Expiration Date:
           </label>
           <input
+            defaultValue={selectedInventory?.expirationDate}
             type="date"
             {...register("expirationDate", {
               required: "Expiration date is required",
@@ -204,18 +207,18 @@ const CreateInventory = () => {
         </div>
         <button
           type="submit"
-          disabled={isCreating}
+          disabled={isEditing}
           className={`py-2 px-4 rounded-md text-white font-bold ${
-            isCreating
+            isEditing
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-blue-500 hover:bg-blue-700"
           }`}
         >
-          {isCreating ? "Adding inventory..." : "Add inventory"}
+          {isEditing ? "Updating..." : "Update"}
         </button>
       </form>
     </main>
   );
 };
 
-export default CreateInventory;
+export default EditInventory;

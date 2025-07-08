@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useProductContext } from "../hooks/useProductContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDeleteInventory } from "../hooks/useDeleteInventory";
 
 interface Inventory {
@@ -18,17 +18,29 @@ interface Inventory {
 
 interface InventoriesProp {
   inventories: Inventory[];
-  handleEdit: (id: number) => void;
-  handleView: (id: number) => void;
+  // handleEdit: (id: number) => void;
+  // handleView: (id: number) => void;
 }
 
-const InventoryTable: React.FC<InventoriesProp> = ({
-  inventories,
-  handleEdit,
-}) => {
+const InventoryTable: React.FC<InventoriesProp> = ({ inventories }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const { theId, setTheId } = useProductContext();
+  const { theId, setTheId, setSelectedInventory } = useProductContext();
   const { deleteInventoryFn } = useDeleteInventory();
+
+  const navigate = useNavigate();
+
+  const handleEdit = (id: number) => {
+    // setTheId(id);
+    const inventoryToEdit = inventories?.find((user) => user?.id === id);
+
+    if (inventoryToEdit) {
+      setSelectedInventory(inventoryToEdit);
+    }
+
+    // console.log(`Editing user with id ${id}`);
+
+    navigate("/editInventory");
+  };
 
   const handleDeleteModal = (id: number) => {
     setTheId(id);

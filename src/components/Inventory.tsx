@@ -33,21 +33,14 @@ const Inventory: React.FC = () => {
       Inventory?.productName?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  //   * search product name  function
-  // const searchProducts: Product[] = products?.filter((product: Product) =>
-  //   product?.name.toLowerCase().includes(searchQuery.toLowerCase())
-  // );
-
   // *Edit function
-  const handleEdit = (id: number) => {
-    console.log(`Edit product with id: ${id}`);
-    // Implement your edit logic here
-  };
+  // const handleEdit = (id: number) => {
+  //   console.log(`Edit product with id: ${id}`);
+  // };
 
-  const handleView = (id: number) => {
-    console.log(`View product with id: ${id}`);
-    // Implement your view logic here
-  };
+  // const handleView = (id: number) => {
+  //   console.log(`View product with id: ${id}`);
+  // };
 
   const handleExportToCSV = () => {
     const csv = Papa.unparse(inventories);
@@ -96,8 +89,8 @@ const Inventory: React.FC = () => {
         <div className="container mx-auto mt-5">
           <InventoryTable
             inventories={searchInventories}
-            handleEdit={handleEdit}
-            handleView={handleView}
+            // handleEdit={handleEdit}
+            // handleView={handleView}
             // handleDelete={handleDelete}
           />
         </div>

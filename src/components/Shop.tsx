@@ -9,7 +9,6 @@ import {
   Banknote,
   Smartphone,
 } from "lucide-react";
-
 import { useGetInventories } from "../hooks/useGetInventories";
 import toast from "react-hot-toast";
 
@@ -19,6 +18,7 @@ interface Product {
   unitPrice: number;
   quantity: number;
   category: string;
+  status: string;
 }
 
 interface CartItem {
@@ -38,67 +38,8 @@ interface Sale {
 
 type PaymentMethod = "transfer" | "cash" | "pos";
 
-const Sales: React.FC = () => {
+const Shop: React.FC = () => {
   // Sample products data (normally would come from backend/database)
-
-  // const [products] = useState<Product[]>([
-  //   {
-  //     id: "1",
-  //     name: "Laptop Dell XPS 13",
-  //     unitPrice: 1200,
-  //     availableQuantity: 15,
-  //     category: "Electronics",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "iPhone 15 Pro",
-  //     unitPrice: 999,
-  //     availableQuantity: 8,
-  //     category: "Electronics",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Samsung Galaxy S24",
-  //     unitPrice: 850,
-  //     availableQuantity: 12,
-  //     category: "Electronics",
-  //   },
-  //   {
-  //     id: "4",
-  //     name: "MacBook Air M2",
-  //     unitPrice: 1099,
-  //     availableQuantity: 6,
-  //     category: "Electronics",
-  //   },
-  //   {
-  //     id: "5",
-  //     name: "Sony WH-1000XM5",
-  //     unitPrice: 350,
-  //     availableQuantity: 20,
-  //     category: "Audio",
-  //   },
-  //   {
-  //     id: "6",
-  //     name: 'iPad Pro 12.9"',
-  //     unitPrice: 1099,
-  //     availableQuantity: 10,
-  //     category: "Electronics",
-  //   },
-  //   {
-  //     id: "7",
-  //     name: "AirPods Pro",
-  //     unitPrice: 249,
-  //     availableQuantity: 25,
-  //     category: "Audio",
-  //   },
-  //   {
-  //     id: "8",
-  //     name: "Canon EOS R5",
-  //     unitPrice: 3899,
-  //     availableQuantity: 3,
-  //     category: "Camera",
-  //   },
-  // ]);
 
   const { inventories } = useGetInventories();
   const [products] = useState<Product[]>(inventories);
@@ -275,11 +216,13 @@ const Sales: React.FC = () => {
                             {product?.productName}
                           </h4>
                           <p className="text-sm text-gray-600">
-                            {product.category}
+                            {product.status}
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="font-semibold">${product.unitPrice}</p>
+                          <p className="font-semibold">
+                            ${product?.unitPrice.toLocaleString()}
+                          </p>
                           <p className="text-sm text-gray-600">
                             Stock: {product?.quantity}
                           </p>
@@ -306,7 +249,7 @@ const Sales: React.FC = () => {
                   <div className="flex justify-between">
                     <span>Unit Price:</span>
                     <span className="font-semibold">
-                      ${selectedProduct.unitPrice}
+                      ${selectedProduct.unitPrice.toLocaleString()}
                     </span>
                   </div>
 
@@ -326,9 +269,8 @@ const Sales: React.FC = () => {
                       min="1"
                       max={selectedProduct?.quantity}
                       value={quantity}
-                      onChange={
-                        (e) => setQuantity(parseInt(e.target.value) || 1)
-                        // setQuantity(parseInt(e.target.value))
+                      onChange={(e) =>
+                        setQuantity(parseInt(e.target.value) || 1)
                       }
                       className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
@@ -339,7 +281,9 @@ const Sales: React.FC = () => {
                     <span>
                       $
                       {quantity > 0
-                        ? (selectedProduct.unitPrice * quantity).toFixed(2)
+                        ? (
+                            selectedProduct.unitPrice * quantity
+                          ).toLocaleString()
                         : "0.00"}
                     </span>
                   </div>
@@ -414,7 +358,7 @@ const Sales: React.FC = () => {
             <div className="border-t pt-4 mb-6">
               <div className="flex justify-between text-xl font-bold">
                 <span>Total Amount:</span>
-                <span>${getTotalAmount().toFixed(2)}</span>
+                <span>${getTotalAmount().toLocaleString()}</span>
               </div>
             </div>
 
@@ -449,7 +393,7 @@ const Sales: React.FC = () => {
               disabled={cart.length === 0}
               className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-lg font-semibold"
             >
-              Pay ${getTotalAmount().toFixed(2)}
+              Pay ${getTotalAmount().toLocaleString()}
             </button>
           </div>
         </div>
@@ -491,7 +435,7 @@ const Sales: React.FC = () => {
                         </p>
                       </div>
                       <p className="font-semibold">
-                        ${item.totalPrice.toFixed(2)}
+                        ${item.totalPrice.toLocaleString()}
                       </p>
                     </div>
                   ))}
@@ -506,7 +450,7 @@ const Sales: React.FC = () => {
                   </div>
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total:</span>
-                    <span>${showReceipt.totalAmount.toFixed(2)}</span>
+                    <span>${showReceipt.totalAmount.toLocaleString()}</span>
                   </div>
                 </div>
 
@@ -534,4 +478,4 @@ const Sales: React.FC = () => {
   );
 };
 
-export default Sales;
+export default Shop;

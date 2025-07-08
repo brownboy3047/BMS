@@ -61,7 +61,7 @@ const Product = () => {
 
       <div className="mt-4 flex items-end justify-end">
         <input
-          type="text"
+          type="search"
           placeholder="Search by name"
           value={searchQuery}
           onChange={handleSearch}
