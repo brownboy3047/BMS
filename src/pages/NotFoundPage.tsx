@@ -15,7 +15,7 @@ const NotFoundPage = () => {
           onClick={() => navigate("/")}
           className="py-2 px-3 bg-secondary text-white"
         >
-          Back to Homepage
+          Back to Home
         </button>
       </div>
     </div>
